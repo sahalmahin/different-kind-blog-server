@@ -49,20 +49,6 @@ async function run() {
             res.send(result);
         })
 
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
         // singleBlog
         app.get('/singleBlog', async (req, res) => {
             console.log(req.query);
