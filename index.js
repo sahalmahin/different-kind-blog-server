@@ -36,8 +36,8 @@ async function run() {
 
         // blog related api
         app.get('/blogs', async (req, res) => {
-            const cursor = blogCollection.find();
-            const result = await cursor.toArray();
+            console.log(req.query);
+            const result = await blogCollection.find().toArray();
             res.send(result);
         })
 
@@ -45,6 +45,14 @@ async function run() {
         app.get('/singleBlog', async (req, res) => {
             console.log(req.query);
             const result = await saveCollection.find().toArray();
+            res.send(result);
+        })
+
+        app.get('/singleBlog/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log(id);
+            const query = { _id: new ObjectId(id) };
+            const result = await saveCollection.findOne(query);
             res.send(result);
         })
 
