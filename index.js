@@ -33,6 +33,7 @@ async function run() {
         // blog collection
         const blogCollection = client.db('blogWebsite').collection('blogs');
         const saveCollection = client.db('blogWebsite').collection('singleBlog');
+        // const addCollection = client.db('blogWebsite').collection('addBlog');
 
         // blog related api
         app.get('/blogs', async (req, res) => {
@@ -73,6 +74,13 @@ async function run() {
             const result = await saveCollection.deleteOne(query);
             res.send(result);
         })
+
+        // // addBlog
+        // app.gey('/addBlog', async (req, res) => {
+        //     console.log(req.query);
+        //     const result = await addCollection.find().toArray();
+        //     res.send(result);
+        // })
 
 
 
