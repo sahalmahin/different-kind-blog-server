@@ -51,16 +51,12 @@ async function run() {
 
         // singleBlog
         app.get('/singleBlog', async (req, res) => {
-            console.log(req.query);
-            const result = await saveCollection.find().toArray();
-            res.send(result);
-        })
-
-        app.get('/singleBlog/:id', async (req, res) => {
-            const id = req.params.id;
-            console.log(id);
-            const query = { _id: new ObjectId(id) };
-            const result = await saveCollection.findOne(query);
+            console.log(req.query.email);
+            let query = {};
+            if (req.query?.email) {
+                query = { email: req.query.email };
+            }
+            const result = await saveCollection.find(query).toArray();
             res.send(result);
         })
 
@@ -71,11 +67,26 @@ async function run() {
             res.send(result);
         })
 
+        app.delete('/singleBlog/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await saveCollection.deleteOne(query);
+            res.send(result);
+        })
 
 
 
 
 
+
+
+        // app.get('/singleBlog/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     console.log(id);
+        //     const query = { _id: new ObjectId(id) };
+        //     const result = await saveCollection.findOne(query);
+        //     res.send(result);
+        // })
 
 
         // Send a ping to confirm a successful connection
