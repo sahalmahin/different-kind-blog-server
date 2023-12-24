@@ -75,27 +75,11 @@ async function run() {
             res.send(result);
         })
 
-        // // addBlog
-        // app.gey('/addBlog', async (req, res) => {
-        //     console.log(req.query);
-        //     const result = await addCollection.find().toArray();
-        //     res.send(result);
-        // })
 
 
 
 
-
-
-
-        // app.get('/singleBlog/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     console.log(id);
-        //     const query = { _id: new ObjectId(id) };
-        //     const result = await saveCollection.findOne(query);
-        //     res.send(result);
-        // })
-
+        
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
