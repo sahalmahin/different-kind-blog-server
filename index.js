@@ -30,6 +30,21 @@ async function run() {
         const blogCollection = client.db('blogWebsite').collection('blogs');
         const saveCollection = client.db('blogWebsite').collection('singleBlog');
         const addCollection = client.db('blogWebsite').collection('addBlog');
+        const addComment = client.db('blogWebsite').collection('users');
+
+        // comment related api
+        app.get('/users', async(req,res)=>{
+            const cursor = addComment.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            console.log(user);
+            const result = await addComment.insertOne(user);
+            res.send(result)
+        })
 
         // blog related api
         app.get('/blogs', async (req, res) => {
