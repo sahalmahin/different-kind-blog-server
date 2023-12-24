@@ -97,6 +97,24 @@ async function run() {
             res.send(result);
         })
 
+        app.put('/addBlog/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) };
+            const options = { upsert: true };
+            const updatedBlog = req.body;
+            const blog = {
+                $set: {
+                    title: updatedBlog.title,
+                    image: updatedBlog.image,
+                    description: updatedBlog.description,
+                    longDescription: updatedBlog.longDescription,
+                    category: updatedBlog.category,
+                }
+            }
+            const result = await addCollection.updateOne(filter, blog, options);
+            res.send(result);
+        })
+
 
 
 
