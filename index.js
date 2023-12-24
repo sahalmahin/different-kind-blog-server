@@ -33,7 +33,7 @@ async function run() {
         // blog collection
         const blogCollection = client.db('blogWebsite').collection('blogs');
         const saveCollection = client.db('blogWebsite').collection('singleBlog');
-        // const addCollection = client.db('blogWebsite').collection('addBlog');
+        const addCollection = client.db('blogWebsite').collection('addBlog');
 
         // blog related api
         app.get('/blogs', async (req, res) => {
@@ -76,10 +76,36 @@ async function run() {
         })
 
 
+        // addBlog
+        app.get('/addBlog', async (req, res) => {
+            const cursor = addCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
+        app.get('/addBlog/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await addCollection.findOne(query);
+            res.send(result);
+        })
+
+        app.post('/addBlog', async (req, res) => {
+            const newBlog = req.body;
+            console.log(newBlog);
+            const result = await addCollection.insertOne(newBlog);
+            res.send(result);
+        })
 
 
 
-        
+
+
+
+
+
+
+
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
